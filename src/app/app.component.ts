@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { LoginServiceService } from './services/login-service.service';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sigP';
+
+  constructor(
+    private loginService: LoginServiceService,
+    public dataService: DataService
+  ) {}
+  
+  ngOnInit(): void {
+    this.loginService.getToken().length > 0 ? this.dataService.isLogged = true : this.dataService.isLogged = false;
+  }
+
 }

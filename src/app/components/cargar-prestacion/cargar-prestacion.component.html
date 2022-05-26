@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12"><h2>Cargar nueva prestacion</h2></div>
+    </div>
+
+    <div class="row pt-3">
+        <div class="col-4">
+            <label for="date" class="form-label">Selecciona un fecha</label>
+            <input type="date" class="form-control" id="date" placeholder="11/03/1982">
+        </div>
+        <div class="col-8">
+            <label for="afiliado" class="form-label">Buscar afiliado en el padron</label>
+            <app-autocomplete [data]="data" placeholder="Seleccionar Afiliado"></app-autocomplete>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-4">
+            <label for="codigoPrestacion" class="form-label">Código de prestación</label>
+            <app-autocomplete [data]="data" placeholder="Seleccionar Country"></app-autocomplete> 
+        </div>
+
+        <div class="col-4">
+            <label for="afiliado" class="form-label">Pieza dental</label>
+            <app-autocomplete [data]="data" placeholder="Seleccionar Pieza Dental"></app-autocomplete>
+        </div>
+
+        <div class="col-4">
+            <label for="afiliado" class="form-label">Cara</label>
+            <app-autocomplete [data]="data" placeholder="Seleccionar Cara"></app-autocomplete>
+        </div>
+
+    </div>
+
+</div>
