@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-cargar-prestacion',
@@ -23,7 +24,9 @@ export class CargarPrestacionComponent implements OnInit {
      }
   ];
 
-  constructor() { }
+  constructor(
+    private httpService: HttpService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -40,6 +43,15 @@ export class CargarPrestacionComponent implements OnInit {
   
   onFocused(e: any){
     // do something when input is focused
+  }
+
+  searchAfiliado(e:any) {
+    const input: string = e.target.value;
+
+    if ( input.length >= 3 ) {
+      this.httpService.searchAfiliado(input)
+          .subscribe( resp => console.log(resp))
+    }
   }
 
 }

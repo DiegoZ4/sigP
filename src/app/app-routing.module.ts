@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'select', loadChildren: () => import('./components/select-entity/select-entity.module').then(m => m.SelectEntityModule)
   },
   { path: 'home', canActivate: [AuthGuard], loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule) },
-  { path: 'components/cargarPrestacion', loadChildren: () => import('./components/cargar-prestacion/cargar-prestacion.module').then(m => m.CargarPrestacionModule) },
+  { path: 'cargar-prestacion', loadChildren: () => import('./components/cargar-prestacion/cargar-prestacion.module').then(m => m.CargarPrestacionModule) },
 ]
 
 @NgModule({
