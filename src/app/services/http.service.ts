@@ -16,7 +16,7 @@ export class HttpService {
     return this.cookies.get("token");
   }
 
-  searchAfiliado( input: string ){
+  searchAfiliado( input: string, fecha: string ){
 
     const headers = new HttpHeaders({
       'Content-Type':'application/json',
@@ -24,6 +24,6 @@ export class HttpService {
       Authorization: `Bearer ${this.getToken()}`
     });
 
-    return this.http.get("http://develsig.odontopraxis.com.ar:9876/api/externos/afiliado?query="+input, { headers })
+    return this.http.get("http://develsig.odontopraxis.com.ar:9876/api/externos/afiliado?query="+input+"&fecha="+fecha, { headers })
   }
 }

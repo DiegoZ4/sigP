@@ -5,6 +5,7 @@ import { CargarPrestacionRoutingModule } from './cargar-prestacion-routing.modul
 import { CargarPrestacionComponent } from './cargar-prestacion.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AutocompleteComponent } from '../shared/autocomplete/autocomplete.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AutocompleteComponent } from '../shared/autocomplete/autocomplete.compo
   imports: [
     CommonModule,
     CargarPrestacionRoutingModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    FormsModule
   ]
 })
 export class CargarPrestacionModule { }

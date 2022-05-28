@@ -8,6 +8,9 @@ import { HttpService } from '../../services/http.service';
 })
 export class CargarPrestacionComponent implements OnInit {
 
+  startDate = new Date();
+  afiliado = '';
+
   keyword = 'name';
   data = [
     {
@@ -23,6 +26,9 @@ export class CargarPrestacionComponent implements OnInit {
        name: 'England'
      }
   ];
+
+  posiblesAfiliados: any = [];
+  selectedAfiliado: null;
 
   constructor(
     private httpService: HttpService
@@ -45,13 +51,28 @@ export class CargarPrestacionComponent implements OnInit {
     // do something when input is focused
   }
 
-  searchAfiliado(e:any) {
-    const input: string = e.target.value;
+  searchAfiliado() {
+    const input = this.afiliado;
+    const fecha = this.startDate;
 
-    if ( input.length >= 3 ) {
-      this.httpService.searchAfiliado(input)
-          .subscribe( resp => console.log(resp))
+    const currentMonth = fecha.getMonth() < 10 ? '0'+(fecha.getMonth()+1) : fecha.getMonth()+1;
+    const currentDay = fecha.getDay() < 10 ? '0'+(fecha.getDay()+1) : fecha.getDay()+1;
+
+    const fechaFormat = currentDay+'/'+currentMonth+'/'+fecha.getFullYear();
+    if ( input.length >= 5 ) {
+      this.httpService.searchAfiliado(input, fechaFormat)
+          .subscribe( (resp:any) => {
+            console.log(resp);
+            this.posiblesAfiliados = resp.data
+          })
     }
+  }
+
+  seleccionarAfiliado(e:any, afiliado:any) {
+    console.log( e.target.checked );
+    console.log(afiliado);
+
+    e.target.checked ? this.selectedAfiliado = afiliado : this.selectedAfiliado = null;
   }
 
 }
