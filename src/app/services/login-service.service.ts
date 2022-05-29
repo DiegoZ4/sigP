@@ -28,7 +28,7 @@ export class LoginServiceService {
     return this.cookies.get("token");
   }
 
-  getUserInfo( token: string ){
+  getUserInfo( ){
 
     const headers = new HttpHeaders({
       'Content-Type':'application/json',

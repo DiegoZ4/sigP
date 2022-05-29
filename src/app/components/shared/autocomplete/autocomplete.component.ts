@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
@@ -9,8 +9,9 @@ export class AutocompleteComponent implements OnInit {
 
   @Input() data: any;
   @Input() placeholder: string = '';
+  @Input() keyword = '';
 
-  keyword = 'name';
+  @Output() itemSelectedEvent = new EventEmitter<string>();
   
 
   constructor() { }
@@ -18,9 +19,14 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addNewItem(value: string) {
+    this.itemSelectedEvent.emit(value);
+  }
+
   selectEvent(item: any) {
     // do something with selected item
     console.log(item)
+    this.addNewItem(item.id)
   }
 
   onChangeSearch(val: string) {
@@ -30,6 +36,10 @@ export class AutocompleteComponent implements OnInit {
   
   onFocused(e: any){
     // do something when input is focused
+  }
+
+  getField(item:any) {
+    return item[this.keyword]
   }
 
 }

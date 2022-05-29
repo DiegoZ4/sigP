@@ -35,7 +35,7 @@ export class LoginComponent  {
     this.loginService.login(this.form.value).subscribe(
       resp => {
         this.loginService.setToken( resp.session.access_token );
-        this.loginService.getUserInfo( resp.session.access_token )
+        this.loginService.getUserInfo(  )
           .subscribe( user => console.log( user ) );
         this.dataService.isLogged = true;
         this.router.navigate(['home']);

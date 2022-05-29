@@ -3,6 +3,22 @@
         <div class="col-12"><h2>Cargar nueva prestacion</h2></div>
     </div>
 
+    <div class="row pt-3 entidadInfo" *ngIf="prestador">
+        <div class="col-6">
+            <label>Prestador:</label>
+            <div class="prestadorNombre"> {{ prestador.NombresCartilla }}</div>
+        </div>
+        <div class="col-6">
+            <label>Consultorio:</label>
+            <select class="form-select" aria-label="Default select example" (change)="seleccionarConsultorio($event)">
+                <option selected>Seleccionar un consultorio</option>
+                <option *ngFor="let consultorio of consultorios" [value]="consultorio.id">
+                    {{ consultorio.DireccionPublica }} - {{ consultorio.LocalidadPublica }}
+                </option>
+            </select>
+        </div>
+    </div>
+
     <div class="row pt-3">
         <div class="col-4">
             <label for="date" class="form-label">Selecciona un fecha</label>
@@ -25,16 +41,14 @@
 
     <hr *ngIf="posiblesAfiliados.length > 0">
 
-    <div class="row" *ngIf="posiblesAfiliados.length > 0">
+    <div class="row p-3" *ngIf="posiblesAfiliados.length > 0">
         <table class="table">
-            <thead>
               <tr>
-                <th scope="col">Nombre y Apellido</th>
-                <th scope="col">DNI</th>
-                <th scope="col">Cód. Afiliado</th>
-                <th scope="col"></th>
+                <th>Nombre y Apellido</th>
+                <th>DNI</th>
+                <th>Cód. Afiliado</th>
+                <th></th>
               </tr>
-            </thead>
             <tbody>
               <tr *ngFor="let pa of posiblesAfiliados">
                 <td>{{ pa.nombre }} {{ pa.apellido }}</td>
@@ -44,8 +58,6 @@
               </tr>
             </tbody>
         </table>
-
-        selectedAfiliado: {{ selectedAfiliado | json }}
     </div>
 
     <hr>
@@ -57,19 +69,34 @@
     <div class="row mt-3">
         <div class="col-4">
             <label for="codigoPrestacion" class="form-label">Código de prestación</label>
-            <app-autocomplete [data]="data" placeholder="Seleccionar Country"></app-autocomplete> 
+            <app-autocomplete [data]="codigos" keyword="codigo" 
+            (itemSelectedEvent)="selectCodigo($event)" placeholder="Seleccionar código"></app-autocomplete> 
         </div>
 
         <div class="col-4">
             <label for="afiliado" class="form-label">Pieza dental</label>
-            <app-autocomplete [data]="data" placeholder="Seleccionar Pieza Dental"></app-autocomplete>
+            <app-autocomplete [data]="piezas" keyword="nombre" 
+            (itemSelectedEvent)="selectPieza($event)" placeholder="Seleccionar Pieza Dental"></app-autocomplete>
         </div>
 
         <div class="col-4">
             <label for="afiliado" class="form-label">Cara</label>
-            <app-autocomplete [data]="data" placeholder="Seleccionar Cara"></app-autocomplete>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="caraDental">
+                <option selected>Selecciona  una cara</option>
+                <option value="O">OCLUSAL</option>
+                <option value="D">DISTAL</option>
+                <option value="M">MESIAL</option>
+                <option value="P">PALATINA</option>
+                <option value="V">VESTIBULAR</option>
+            </select>
         </div>
 
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-12">
+            <button type="button" (click)="send()" class="btn btn-primary">Cargar Prestación</button>
+        </div>
     </div>
 
 </div>
