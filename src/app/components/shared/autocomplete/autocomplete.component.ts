@@ -26,7 +26,7 @@ export class AutocompleteComponent implements OnInit {
   selectEvent(item: any) {
     // do something with selected item
     console.log(item)
-    this.addNewItem(item.id)
+    this.addNewItem(item)
   }
 
   onChangeSearch(val: string) {

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12"><h2>Prestaciones cargadas</h2></div>
+    </div>
+
+    <div class="row pt-3">
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Afiliado</th>
+                    <th>Código</th>
+                    <th>Cara</th>
+                    <th>Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of prestaciones">
+                    <th>{{p.Afiliado.NombreCompleto}}</th>
+                    <td>{{p.CodigoPrestacional.codigo}}</td>
+                    <td>{{p.caraDental}}</td>
+                    <td>{{p.fechaEjecucion | date: 'dd/MM/yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+</div>

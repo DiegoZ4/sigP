@@ -10,10 +10,11 @@ import { SelectEntityModule } from './components/select-entity/select-entity.mod
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AutocompleteComponent } from './components/shared/autocomplete/autocomplete.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuard } from './services/auth.guard';
 import { NoLogin } from './services/noLogin.guard';
+import { AuthInterceptor } from './services/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,12 @@ import { NoLogin } from './services/noLogin.guard';
     AutocompleteLibModule,
     HttpClientModule
   ],
-  providers: [CookieService, AuthGuard, NoLogin],
+  providers: [
+    CookieService, 
+    AuthGuard, 
+    NoLogin,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

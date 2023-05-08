@@ -24,6 +24,11 @@ export class CargarPrestacionComponent implements OnInit {
   pieza_id: any;
   consultorio_id: any;
   caraDental: string = '';
+  requierePieza = false;
+  requiereCaras = false;
+  showNoAfiliados = false;
+  showSubmitError = false;
+  showSubmitOk = false;
 
   constructor(
     private loginService: LoginServiceService,
@@ -49,16 +54,21 @@ export class CargarPrestacionComponent implements OnInit {
           console.log(resp);
           this.prestador = resp.Prestador;
           this.consultorios = resp.Prestador.ConsultorioPrestador;
+
+          this.consultorios.length === 1 ? this.consultorio_id = this.consultorios[0].id : this.consultorio_id = null;
         })
 
   }
 
   selectCodigo( item:any ) {
-    this.codigo_id = item;
+    console.log(item)
+    this.codigo_id = item.id;
+    this.requierePieza = item.requierePieza
+    this.requiereCaras = item.requiereCaras
   }
 
   selectPieza( item:any ) {
-    this.pieza_id = item;
+    this.pieza_id = item.id;
   }
 
   searchAfiliado() {
@@ -69,7 +79,14 @@ export class CargarPrestacionComponent implements OnInit {
       this.httpService.searchAfiliado(input, fechaFormat)
           .subscribe( (resp:any) => {
             console.log(resp);
-            this.posiblesAfiliados = resp.data
+            this.posiblesAfiliados = resp.data;
+
+            if ( this.posiblesAfiliados.length === 0 ) {
+              this.showNoAfiliados = true;
+              setTimeout(() => {
+                this.showNoAfiliados = false;
+              }, 2000);
+            }
           })
     }
   }
@@ -108,7 +125,19 @@ export class CargarPrestacionComponent implements OnInit {
     console.log( input )
 
     this.httpService.poster('externos/prestacion', input)
-        .subscribe( resp => console.log( resp ))
+        .subscribe( resp => {
+          console.log( resp );
+          this.showSubmitOk = true;
+        },
+        error => this.showSubmitError = true)
+  }
+
+  canSend() {
+    if ( this.codigo_id && this.selectedAfiliado && this.consultorio_id ) {
+      return false
+    } else {
+      return true
+    }
   }
 
 }

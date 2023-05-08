@@ -12,6 +12,7 @@ const routes: Routes = [
   },
   { path: 'home', canActivate: [AuthGuard], loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule) },
   { path: 'cargar-prestacion', loadChildren: () => import('./components/cargar-prestacion/cargar-prestacion.module').then(m => m.CargarPrestacionModule) },
+  { path: 'lista-prestacion', loadChildren: () => import('./components/lista-prestacion/lista-prestacion.module').then(m => m.ListaPrestacionModule) },
 ]
 
 @NgModule({
